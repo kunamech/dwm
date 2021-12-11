@@ -57,7 +57,7 @@ static const Layout layouts[] = {
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
 	{ "[@]",      spiral },
-	{ "[\\]",      dwindle },
+	{ "[\\]",     dwindle },
 };
 
 /* key definitions */
@@ -82,6 +82,7 @@ static const char *brdowncmd[] = { "sudo", "xbacklight", "-dec", "10", NULL };
 static const char *vdowncmd[] = { "pamixer", "--allow-boost", "-d", "3", NULL};
 static const char *vupcmd[] = { "pamixer", "--allow-boost", "-i", "3", NULL};
 
+static const char *nmrestart[] = {"sudo", "systemctl", "restart", "NetworkManager", NULL};
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -115,10 +116,15 @@ static Key keys[] = {
 	{ MODKEY,                       XK_equal,  setgaps,        {.i = +5 } },
 	{ MODKEY|ShiftMask,             XK_minus,  setgaps,        {.i = GAP_RESET } },
 	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = GAP_TOGGLE} },
-        { 0, XF86XK_AudioRaiseVolume,    spawn,		{ .v = vupcmd} },
+        /* Audio controls  */
+       	{ 0, XF86XK_AudioRaiseVolume,    spawn,		{ .v = vupcmd} },
 	{ 0, XF86XK_AudioLowerVolume,    spawn,         { .v = vdowncmd} },
+	/* Backlight  */
 	{ 0, XF86XK_MonBrightnessUp, spawn, {.v = brupcmd} },
 	{ 0, XF86XK_MonBrightnessDown, spawn, {.v = brdowncmd} },
+	/* Misc stuff */
+	{0, XF86XK_RFKill,	spawn,	{ .v = nmrestart} },
+	/* Window controls */
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
