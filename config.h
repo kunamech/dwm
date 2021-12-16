@@ -84,7 +84,7 @@ static const char *vupcmd[] = { "pamixer", "--allow-boost", "-i", "3", NULL};
 
 /* Misc functions */
 static const char *nmrestart[] = {"sudo", "systemctl", "restart", "NetworkManager", NULL};
-static const chat *mutefn[] = {"sb-mute", NULL};
+static const char *mutefn[] = {"sb-mute", NULL};
 
 
 static Key keys[] = {
@@ -122,7 +122,7 @@ static Key keys[] = {
         /* Audio controls  */
        	{ 0, XF86XK_AudioRaiseVolume,    spawn,		{ .v = vupcmd} },
 	{ 0, XF86XK_AudioLowerVolume,    spawn,         { .v = vdowncmd} },
-	{ 0, XF86XK_AudioMute,		 spawn		{ .v = mutefn} },
+	{ 0, XF86XK_AudioMute,		 spawn,		{ .v = mutefn} },
 	/* Backlight  */
 	{ 0, XF86XK_MonBrightnessUp, spawn, {.v = brupcmd} },
 	{ 0, XF86XK_MonBrightnessDown, spawn, {.v = brdowncmd} },
