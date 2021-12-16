@@ -31,7 +31,7 @@ static const unsigned int alphas[][3]      = {
 #include <X11/XF86keysym.h>
 
 /* tagging */
-static const char *tags[] = { "", "", "", "", "", "", "", "", "" };
+static const char *tags[] = { "", "", "", "", "", "", "", "", "" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -82,7 +82,10 @@ static const char *brdowncmd[] = { "sudo", "xbacklight", "-dec", "10", NULL };
 static const char *vdowncmd[] = { "pamixer", "--allow-boost", "-d", "3", NULL};
 static const char *vupcmd[] = { "pamixer", "--allow-boost", "-i", "3", NULL};
 
+/* Misc functions */
 static const char *nmrestart[] = {"sudo", "systemctl", "restart", "NetworkManager", NULL};
+static const chat *mutefn[] = {"sb-mute", NULL};
+
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -119,6 +122,7 @@ static Key keys[] = {
         /* Audio controls  */
        	{ 0, XF86XK_AudioRaiseVolume,    spawn,		{ .v = vupcmd} },
 	{ 0, XF86XK_AudioLowerVolume,    spawn,         { .v = vdowncmd} },
+	{ 0, XF86XK_AudioMute,		 spawn		{ .v = mutefn} },
 	/* Backlight  */
 	{ 0, XF86XK_MonBrightnessUp, spawn, {.v = brupcmd} },
 	{ 0, XF86XK_MonBrightnessDown, spawn, {.v = brdowncmd} },
