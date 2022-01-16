@@ -87,6 +87,22 @@ static const char *vupcmd[] = { "pamixer", "--allow-boost", "-i", "3", NULL};
 static const char *nmrestart[] = {"sudo", "systemctl", "restart", "NetworkManager", NULL};
 static const char *mutefn[] = {"sb-mute", NULL};
 
+static const char *musicplay[] = {"", NULL};
+static const char *musicprev[] = {"", NULL};
+static const char *musicnext[] = {"", NULL};
+
+
+static const char *myscrot[] = {"myscrot", NULL};
+static const char *runfm[] = {"st", "lf",  NULL};
+
+static const char *rssreader[] = {"st", "newsboat", NULL};
+static const char *abook[] = {"st", "abook", NULL};
+static const char *browser[] = {"firefox", NULL};
+static const char *mailclient[] = {"st", "neomutt", NULL};
+
+static const char *anicli[] = {"st", "ani-cli", NULL};
+static const char *slock[] = {"slock", NULL};
+static const char *procman[] = {"st", "htop"};
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -101,9 +117,9 @@ static Key keys[] = {
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY|ShiftMask,             XK_h,      setcfact,       {.f = +0.25} },
+     /* 	{ MODKEY|ShiftMask,             XK_h,      setcfact,       {.f = +0.25} },
 	{ MODKEY|ShiftMask,             XK_l,      setcfact,       {.f = -0.25} },
-	{ MODKEY|ShiftMask,             XK_o,      setcfact,       {.f =  0.00} },
+	{ MODKEY|ShiftMask,             XK_o,      setcfact,       {.f =  0.00} }, */
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
@@ -122,15 +138,30 @@ static Key keys[] = {
 	{ MODKEY,                       XK_minus,  setgaps,        {.i = -5 } },
 	{ MODKEY,                       XK_equal,  setgaps,        {.i = +5 } },
 	{ MODKEY|ShiftMask,             XK_minus,  setgaps,        {.i = GAP_RESET } },
-	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = GAP_TOGGLE} },
-        /* Audio controls  */
-       	{ 0, XF86XK_AudioRaiseVolume,    spawn,		{ .v = vupcmd} },
-	{ 0, XF86XK_AudioLowerVolume,    spawn,         { .v = vdowncmd} },
-	{ 0, XF86XK_AudioMute,		 spawn,		{ .v = mutefn} },
-	/* Backlight  */
+	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = GAP_TOGGLE } },
+        /* Misc controls  */
+       	{ 0, XF86XK_AudioRaiseVolume,    spawn,		{ .v = vupcmd } },
+	{ 0, XF86XK_AudioLowerVolume,    spawn,         { .v = vdowncmd } },
+	{ 0, XF86XK_AudioMute,		 spawn,		{ .v = mutefn } },
+
+	{ 0, XF86XK_AudioPlay,		spawn,		{ .v = musicplay } },
+       	{ 0, XF86XK_AudioPrev,		spawn,		{ .v = musicprev } },
+	{ 0, XF86XK_AudioNext,		spawn,		{ .v = musicnext } },
+
+	{ MODKEY,			XK_s, spawn,		{ .v = myscrot } },
+	{ MODKEY,			XK_v, spawn,		{ .v = runfm } },
+	{ MODKEY,			XK_f, spawn,		{ .v = browser } },
+
+	{ MODKEY|ShiftMask,		XK_l, spawn,		{ .v = slock } },
+	{ MODKEY|ShiftMask,		XK_h, spawn,		{ .v = procman } },
+	{ MODKEY|ShiftMask,		XK_e, spawn,		{ .v = mailclient } },
+	{ MODKEY|ShiftMask,		XK_o, spawn,		{ .v = abook } },
+	{ MODKEY|ShiftMask,		XK_y, spawn,		{ .v = rssreader } },
+	{ MODKEY|ShiftMask,		XK_p, spawn,		{ .v = anicli } },
+
 	{ 0, XF86XK_MonBrightnessUp, spawn, {.v = brupcmd} },
 	{ 0, XF86XK_MonBrightnessDown, spawn, {.v = brdowncmd} },
-	/* Misc stuff */
+
 	{0, XF86XK_RFKill,	spawn,	{ .v = nmrestart} },
 	/* Window controls */
 	TAGKEYS(                        XK_1,                      0)
