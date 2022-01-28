@@ -85,7 +85,7 @@ static const char *vupcmd[] = { "pamixer", "--allow-boost", "-i", "3", NULL};
 
 /* Misc functions */
 static const char *nmrestart[] = {"sudo", "systemctl", "restart", "NetworkManager", NULL};
-static const char *mutefn[] = {"sb-mute", NULL};
+static const char *mutefn[] = {"pamixer", "-t",  NULL};
 
 static const char *musicplay[] = {"", NULL};
 static const char *musicprev[] = {"", NULL};
