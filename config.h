@@ -50,6 +50,10 @@ static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 
+static const LayoutMonitorRule lm_rules[] = {
+		/* >=w, >=h, req'd layout, new nmaster, new mfact */
+			{ 3000, 0,   0,            2,           0.66 },
+};
 
 #include "fibonacci.c"
 static const Layout layouts[] = {
@@ -91,6 +95,8 @@ static const char *musicplay[] = {"", NULL};
 static const char *musicprev[] = {"", NULL};
 static const char *musicnext[] = {"", NULL};
 
+static const char *redshifton[] = {"redshift", "-P", "-O", "4000", NULL};
+static const char *redshiftoff[] = {"redshift", "-P", "-O", "7000", NULL};
 
 static const char *myscrot[] = {"myscrot", NULL};
 static const char *runfm[] = {"st", "lf",  NULL};
@@ -117,15 +123,19 @@ static Key keys[] = {
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
-     /* 	{ MODKEY|ShiftMask,             XK_h,      setcfact,       {.f = +0.25} },
+	/* Useless for tile */
+     /* { MODKEY|ShiftMask,             XK_h,      setcfact,       {.f = +0.25} },
 	{ MODKEY|ShiftMask,             XK_l,      setcfact,       {.f = -0.25} },
 	{ MODKEY|ShiftMask,             XK_o,      setcfact,       {.f =  0.00} }, */
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_r,      setlayout,      {.v = &layouts[3]} },
-	{ MODKEY|ShiftMask,             XK_r,      setlayout,      {.v = &layouts[4]} },
+	/* Killed in favor of redshift bindings*/
+     /* { MODKEY,                       XK_r,      setlayout,      {.v = &layouts[3]} },
+	{ MODKEY|ShiftMask,             XK_r,      setlayout,      {.v = &layouts[4]} }, */
+	{ MODKEY,			XK_r,	   spawn,	   {.v = redshiftoff } },
+	{ MODKEY|ShiftMask,		XK_r,	   spawn,	   {.v = redshifton } },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY|ShiftMask,             XK_f,      togglefullscr,  {0} },
@@ -150,11 +160,11 @@ static Key keys[] = {
 
 	{ MODKEY,			XK_s, spawn,		{ .v = myscrot } },
 	{ MODKEY,			XK_v, spawn,		{ .v = runfm } },
-	{ MODKEY,			XK_f, spawn,		{ .v = browser } },
+	{ MODKEY|ShiftMask,		XK_b, spawn,		{ .v = browser } },
 
 	{ MODKEY|ShiftMask,		XK_l, spawn,		{ .v = slock } },
 	{ MODKEY|ShiftMask,		XK_h, spawn,		{ .v = procman } },
-	{ MODKEY|ShiftMask,		XK_e, spawn,		{ .v = mailclient } },
+	{ MODKEY|ShiftMask,		XK_m, spawn,		{ .v = mailclient } },
 	{ MODKEY|ShiftMask,		XK_o, spawn,		{ .v = abook } },
 	{ MODKEY|ShiftMask,		XK_y, spawn,		{ .v = rssreader } },
 	{ MODKEY|ShiftMask,		XK_p, spawn,		{ .v = anicli } },
