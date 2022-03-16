@@ -69,7 +69,7 @@ static const Layout layouts[] = {
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
-#define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
+#define SHCMD(cmd) { .v = (const char*[]){ "/bin/zsh", "-c", cmd, NULL } }
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
@@ -83,15 +83,14 @@ static const char *vdowncmd[] = { "pamixer", "--allow-boost", "-d", "3", NULL};
 static const char *vupcmd[] = { "pamixer", "--allow-boost", "-i", "3", NULL};
 
 /* Misc functions */
-static const char *nmrestart[] = {"sudo", "systemctl", "restart", "NetworkManager", NULL};
 static const char *mutefn[] = {"pamixer", "-t",  NULL};
 
 static const char *musicplay[] = {"", NULL};
 static const char *musicprev[] = {"", NULL};
 static const char *musicnext[] = {"", NULL};
 
-static const char *redshifton[] = {"redshift", "-P", "-O", "4000", NULL};
-static const char *redshiftoff[] = {"redshift", "-P", "-O", "7000", NULL};
+static const char *redshifton[] = {"redshift", "-P", "-O", "4000", "&&", "notify-send", "test", NULL};
+static const char *redshiftoff[] = {"redshift", "-P", "-O", "7000", "&&", "notify-send", "test", NULL};
 
 static const char *myscrot[] = {"myscrot", NULL};
 static const char *runfm[] = {"st", "lf",  NULL};
@@ -101,8 +100,11 @@ static const char *abook[] = {"st", "abook", NULL};
 static const char *browser[] = {"firefox", NULL};
 static const char *mailclient[] = {"st", "neomutt", NULL};
 
-static const char *anicli[] = {"st", "ani-cli", NULL};
+static const char *suspend[] = {"systemctl", "suspend", NULL};
+static const char *hibernate[] = {"systemctl", "hibernate", NULL};
+static const char *redwm[] = {"kill" "$(pgrep", "dwm)", NULL};
 static const char *slock[] = {"slock", NULL};
+
 static const char *procman[] = {"st", "htop"};
 
 static Key keys[] = {
@@ -140,8 +142,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	{ MODKEY,                       XK_minus,  setgaps,        {.i = -5 } },
-	{ MODKEY,                       XK_equal,  setgaps,        {.i = +5 } },
+	{ MODKEY|ShiftMask,             XK_g,      setgaps,        {.i = -5 } },
+	{ MODKEY,                       XK_g,      setgaps,        {.i = +5 } },
 	{ MODKEY|ShiftMask,             XK_minus,  setgaps,        {.i = GAP_RESET } },
 	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = GAP_TOGGLE } },
         /* Misc controls  */
@@ -157,17 +159,18 @@ static Key keys[] = {
 	{ MODKEY,			XK_v, spawn,		{ .v = runfm } },
 	{ MODKEY|ShiftMask,		XK_b, spawn,		{ .v = browser } },
 
-	{ MODKEY|ShiftMask,		XK_l, spawn,		{ .v = slock } },
+	{ Mod3Mask|ShiftMask,		XK_s, spawn,		{ .v = suspend } },
+	{ Mod3Mask|ShiftMask,		XK_l, spawn,		{ .v = slock } },
+	{ Mod3Mask|ShiftMask,		XK_h, spawn,		{ .v = hibernate } },
+
 	{ MODKEY|ShiftMask,		XK_h, spawn,		{ .v = procman } },
 	{ MODKEY|ShiftMask,		XK_m, spawn,		{ .v = mailclient } },
 	{ MODKEY|ShiftMask,		XK_o, spawn,		{ .v = abook } },
 	{ MODKEY|ShiftMask,		XK_y, spawn,		{ .v = rssreader } },
-	{ MODKEY|ShiftMask,		XK_p, spawn,		{ .v = anicli } },
 
 	{ 0, XF86XK_MonBrightnessUp, spawn, {.v = brupcmd} },
 	{ 0, XF86XK_MonBrightnessDown, spawn, {.v = brdowncmd} },
 
-	{0, XF86XK_RFKill,	spawn,	{ .v = nmrestart} },
 	/* Window controls */
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
