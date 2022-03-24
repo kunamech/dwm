@@ -31,7 +31,7 @@ static const unsigned int alphas[][3]      = {
 #include <X11/XF86keysym.h>
 
 /* tagging */
-static const char *tags[] = { "", "", "", "", "", "", "", "", "" };
+static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -159,9 +159,9 @@ static Key keys[] = {
 	{ MODKEY,			XK_v, spawn,		{ .v = runfm } },
 	{ MODKEY|ShiftMask,		XK_b, spawn,		{ .v = browser } },
 
-	{ Mod3Mask|ShiftMask,		XK_s, spawn,		{ .v = suspend } },
-	{ Mod3Mask|ShiftMask,		XK_l, spawn,		{ .v = slock } },
-	{ Mod3Mask|ShiftMask,		XK_h, spawn,		{ .v = hibernate } },
+	{ MODKEY|ShiftMask,		XK_x, spawn,		{ .v = suspend } },
+	{ MODKEY|ShiftMask,		XK_p, spawn,		{ .v = slock } },
+	{ MODKEY|ShiftMask,		XK_z, spawn,		{ .v = hibernate } },
 
 	{ MODKEY|ShiftMask,		XK_h, spawn,		{ .v = procman } },
 	{ MODKEY|ShiftMask,		XK_m, spawn,		{ .v = mailclient } },
